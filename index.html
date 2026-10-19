@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>售前翻新平台 · 原型演示</title>
+<meta property="og:title" content="售前翻新平台 · 原型演示">
+<meta property="og:description" content="中介上传、远程估价、三档套餐、在线签约的完整流程演示">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{--ground:#F4F1EA;--ink:#1E2530;--muted:#6B6458;--soft:#4A4438;--line:#DDD6C7;--field:#CFC8B8;--panel:#fff;--tint:#F8F6F1;--accent:#2F5D50;--accent-d:#244A40;--accent-t:#EEF4F1;--warn-bg:#FBEFE3;--warn-line:#E3B98C;--warn-ink:#6A3A10}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:'Noto Sans SC',system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;-webkit-text-size-adjust:100%}
+button{font-family:inherit;cursor:pointer;color:inherit}
+input{font-family:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 16px 64px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.04em}
+h1{margin:4px 0 0;font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700}
+h2{margin:0;font-size:20px}
+.pill{font-size:13px;color:var(--muted);background:#E9E3D6;border-radius:999px;padding:6px 14px}
+nav{display:flex;flex-wrap:wrap;gap:8px}
+.step{display:flex;gap:6px;align-items:baseline;border-radius:10px;padding:10px 14px;font-size:14px;min-height:44px;background:#fff;border:1px solid var(--line)}
+.step.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step small{font-size:12px;opacity:.75}
+.role{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--soft);flex-wrap:wrap}
+.role b{background:var(--ink);color:#fff;border-radius:6px;padding:3px 10px;font-size:13px;font-weight:500}
+.phone{width:100%;max-width:420px;margin:0 auto;background:#fff;border-radius:24px;border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:14px}
+.row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.main{flex:999 1 560px;min-width:0;background:#fff;border-radius:16px;border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:16px}
+.side{flex:1 1 260px;background:#fff;border-radius:16px;border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:12px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--soft)}
+.field{width:100%;border:1px solid var(--field);border-radius:8px;padding:10px 12px;font-size:16px;background:#fff;color:var(--ink)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.area{border:1px dashed #A9A090;border-radius:10px;padding:10px 8px;background:var(--tint);display:flex;flex-direction:column;gap:4px;min-height:64px;justify-content:center}
+.area b{font-size:13px;font-weight:500}.area span{font-size:12px;color:var(--muted)}
+.thumb{aspect-ratio:1;border-radius:8px;background:#E4DED1;display:flex;align-items:flex-end;padding:6px;font-size:11.5px;color:var(--soft)}
+.btn{border:0;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:500;background:var(--accent);color:#fff;min-height:44px}
+.btn:hover{background:var(--accent-d)}
+.ghost{border:1px solid var(--field);border-radius:10px;padding:10px 16px;font-size:14px;background:#fff;min-height:44px}
+.muted{font-size:13px;color:var(--muted)}
+.gname{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.q{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;background:var(--tint);cursor:pointer}
+.q input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent);flex:none}
+.q span{display:flex;flex-direction:column;gap:4px}.q .t{font-size:15px}
+.warn{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:12px;font-size:14px;color:var(--warn-ink)}
+.warn b{display:block}
+.data{background:#F1EEE6;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.bid{display:grid;grid-template-columns:minmax(0,1fr) 76px 88px;gap:8px;align-items:end}
+.bid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;border-top:1px solid #E4DED1;padding-top:12px}
+.item{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #EEE9DE}
+.item .n{display:flex;flex-direction:column;gap:2px;min-width:200px}
+.tiers{display:flex;gap:6px}
+.tb{border-radius:8px;padding:8px 12px;font-size:13px;min-height:40px;min-width:52px;background:#fff;border:1px solid var(--field);color:var(--soft)}
+.tb.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sum{display:flex;justify-content:space-between;align-items:baseline;padding:12px;background:var(--tint);border-radius:10px}
+.sum .p{font-size:18px;font-weight:700;color:var(--accent)}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;width:100%;border-radius:14px;padding:16px;background:#fff;border:1px solid var(--line)}
+.card.on{background:var(--accent-t);border:2px solid var(--accent)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline;width:100%}
+.card .nm{font-size:17px;font-weight:700}.card .pr{font-size:20px;font-weight:700;color:var(--accent)}
+.card .ls{font-size:13px;line-height:1.7}
+.card .bd{font-size:12px;font-weight:700;color:var(--accent)}
+.contract{background:var(--tint);border-radius:10px;padding:14px;font-size:14px;line-height:1.8}
+.tl{display:flex;gap:10px;align-items:center;font-size:14px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;background:#fff;border:2px solid #A9A090}
+.dot.on{background:var(--accent);border-color:var(--accent)}
+.tl .off{color:var(--muted)}
+input[type=range]{accent-color:var(--accent);width:100%}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+(function(){
+var initial=function(){return{
+  step:0,lang:'zh',markup:30,pick:'r',pay:'settle',signed:false,
+  checked:{year:true,occupied:true,strata:false,listing:true,access:true,wall:true,leak:true,crack:true,carpet:true,under:true,greenwaste:true,smoke:true,pest:false,furniture:true,campaign:true},
+  answers:{year:'1978',occupied:'房主仍在住，计划下月搬出',strata:'独立屋，不涉及',listing:'11 月 15 日拍照',access:'车道可停，可放 6m³ 垃圾箱',wall:'内墙约 145 m²，天花 72 m²，层高 2.7 m',leak:'主卧天花有水渍，屋顶漏水未修复',crack:'客厅两处细裂缝，无墙纸',carpet:'卧室地毯约 62 m²，无楼梯',under:'不确定，需要掀角查看',greenwaste:'约 3 m³，前院一棵树需修剪，不靠电线',smoke:'2 个报警器失效，灯具 6 个，门把手 8 个',pest:'未发现',furniture:'大部分家具搬走，软装客厅、餐厅、主卧、一间次卧',campaign:'约 6 周'},
+  bid:{wall:{qty:'145',price:'28'},ceiling:{qty:'72',price:'22'},stain:{qty:'1',price:'450'}},
+  tiers:{asbestos:'e',roof:'e',stain:'e',clean:'e',rubbish:'e',smoke:'e',paint:'r',garden:'r',fixtures:'r',carpet:'p',styling:'p'}
+};};
+var S=initial();
+var app=document.getElementById('app');
+function esc(v){return String(v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
+function num(v){var n=parseFloat(v);return isNaN(n)?0:n;}
+
+var stepDefs=[
+ ['建单上传','中介 · 手机','中介按区域上传照片视频，不用打电话沟通。'],
+ ['发补充问题','管理员 · 电脑','问题库来自实际施工中最常导致返工、加价、延误的情况。'],
+ ['上门回答','工头 · 手机','工头现场核实，答案会自动触发风险提醒。'],
+ ['工种出价','油漆工 · 手机','每个工种只看到自己的数据，互相看不到价格。'],
+ ['组装套餐','管理员 · 电脑','打标签、调加价率，三档价格实时计算。'],
+ ['房主选套餐','房主 · 微信','房主在微信里打开链接，中英可切换。'],
+ ['签约付款','房主 · 微信','合同变量自动填好，选付款方式后签署。']
+];
+var areaDefs=[['外立面',4],['前院',3],['客厅',6],['厨房',5],['主卧',4],['次卧 ×2',6],['浴室 ×2',5],['洗衣房',2],['后院',4]];
+var qDefs=[
+ ['基本情况','year','房屋建造年份','1990 年前的房子可能含石棉，打磨、钻孔、拆除前要先检测'],
+ ['基本情况','occupied','目前空置还是有人住？','有人住会影响施工排期和软装方式'],
+ ['基本情况','strata','是否公寓或联排？需要业主委员会批准、预订电梯或限定施工时间吗？','公寓常见限制：限定施工时段、需提前预订电梯'],
+ ['基本情况','listing','预计拍照和上市日期','所有工期从这一天倒推'],
+ ['基本情况','access','工程车能否停放？能否放垃圾箱（skip bin）？','影响清运方式和报价'],
+ ['油漆','wall','各房间墙面面积（m²）和天花高度','油漆工按面积报价'],
+ ['油漆','leak','墙面或天花有无水渍、霉斑？漏水源头是否已修好？','源头没修就刷漆，水渍会再冒出来，还可能被买家视为遮盖问题'],
+ ['油漆','crack','有无裂缝、钉孔或需要去除的墙纸？','修补和去墙纸会明显增加工时'],
+ ['地板与地毯','carpet','地毯面积（m²）和楼梯级数','地毯按面积报价，楼梯另计'],
+ ['地板与地毯','under','地毯下面是不是木地板？','如果是，打磨翻新往往比换地毯更划算'],
+ ['园艺','greenwaste','绿色垃圾大约多少？有无需要修剪的大树？靠近电线吗？','靠近电线的树需要持证人员处理'],
+ ['维修、电与水','smoke','烟雾报警器是否有效？需更换的灯具、门把手数量','电工项目须由持证电工完成'],
+ ['维修、电与水','pest','有无白蚁或虫害迹象？','发现迹象要先做虫害检查'],
+ ['软装','furniture','房主家具是否需要搬走或存储？需要软装的房间数','决定家具运输量和软装规模'],
+ ['软装','campaign','预计营销周期几周？','软装按周期租赁，超期要续租费']
+];
+var bidDefs=[['wall','内墙墙面','面积 m²'],['ceiling','天花','面积 m²'],['stain','主卧天花水渍处理','数量 项']];
+var tierInfo={
+ e:{zh:'必做',en:'Essential',dzh:'不修会影响成交或被验房指出的问题',den:'Fixes buyers and inspectors will flag'},
+ r:{zh:'推荐',en:'Recommended',dzh:'必做 + 性价比最高的整体提升',den:'Essential plus the best-value refresh'},
+ p:{zh:'最佳',en:'Premium',dzh:'推荐 + 地毯与软装，冲击最高成交价',den:'Recommended plus carpet and styling'}
+};
+var rank={e:0,r:1,p:2};
+
+function derive(){
+ var yearN=parseInt(S.answers.year,10);
+ var asbestos=S.checked.year&&!isNaN(yearN)&&yearN<1990;
+ var leakOpen=S.checked.leak&&/未/.test(S.answers.leak||'');
+ var line=function(k){return num(S.bid[k].qty)*num(S.bid[k].price);};
+ var paintCost=line('wall')+line('ceiling'),stainCost=line('stain');
+ var items=[
+  {id:'asbestos',zh:'石棉检测',en:'Asbestos testing',cost:350,src:'工头答案触发',show:asbestos},
+  {id:'roof',zh:'修复屋顶漏水',en:'Fix roof leak',cost:900,src:'工头答案触发',show:leakOpen},
+  {id:'stain',zh:'主卧天花水渍处理',en:'Ceiling stain repair',cost:stainCost,src:'油漆工报价',show:true},
+  {id:'clean',zh:'深度清洁',en:'Deep clean',cost:520,src:'价目表',show:true},
+  {id:'rubbish',zh:'杂物清运',en:'Rubbish removal',cost:480,src:'价目表',show:true},
+  {id:'smoke',zh:'更换失效烟雾报警器',en:'Replace smoke alarms',cost:180,src:'价目表',show:true},
+  {id:'paint',zh:'全屋内墙与天花油漆',en:'Interior repaint',cost:paintCost,src:'油漆工报价',show:true},
+  {id:'garden',zh:'前后院园艺整理',en:'Garden tidy-up',cost:1200,src:'价目表',show:true},
+  {id:'fixtures',zh:'更换灯具与门把手',en:'New light fittings & handles',cost:600,src:'价目表',show:true},
+  {id:'carpet',zh:'卧室地毯更换',en:'New bedroom carpet',cost:3410,src:'价目表',show:true},
+  {id:'styling',zh:'软装（6 周）',en:'Styling (6 weeks)',cost:5500,src:'价目表',show:true}
+ ].filter(function(i){return i.show;});
+ var pkgs=['e','r','p'].map(function(t){
+  var its=items.filter(function(it){return rank[S.tiers[it.id]]<=rank[t];});
+  var cost=its.reduce(function(a,it){return a+it.cost;},0);
+  return{tier:t,its:its,cost:cost,price:Math.round(cost*(1+S.markup/100)/50)*50};
+ });
+ return{yearN:yearN,asbestos:asbestos,leakOpen:leakOpen,paintCost:paintCost,stainCost:stainCost,items:items,pkgs:pkgs};
+}
+
+function T(){return S.lang==='zh'?{
+ brand:'[品牌名]',sw:'EN',title:'王先生，您的房子翻新方案',sub:'12 Example Street, Glen Waverley · 三个方案任选其一',cta:'选这个方案，去签约',valid:'报价 14 天内有效',
+ signTitle:'确认合同信息',cParty:'甲方：',cAddr:'物业：',cPkg:'方案：',cPrice:'总价：',cDates:'工期：',dates:'11 月 1 日至 11 月 12 日',
+ payTitle:'选择付款方式',signBtn:'电子签署合同',signNote:'合同中英对照，以英文版为法律文本。签署后双方收到 PDF。',
+ doneTitle:'合同已签署',doneBody:'我们会在开工前一天微信通知您，施工前后照片会同步给您和中介。',sel:'已选择',pkgSuffix:'套餐',sep:'、'
+}:{
+ brand:'[Brand]',sw:'中文',title:'Your pre-sale refresh options',sub:'12 Example Street, Glen Waverley · choose one of three',cta:'Choose this and sign',valid:'Quote valid for 14 days',
+ signTitle:'Confirm contract details',cParty:'Client: ',cAddr:'Property: ',cPkg:'Package: ',cPrice:'Total: ',cDates:'Works: ',dates:'1 Nov to 12 Nov',
+ payTitle:'How would you like to pay?',signBtn:'Sign contract',signNote:'Bilingual contract; the English version is legally binding. Both parties receive a PDF.',
+ doneTitle:'Contract signed',doneBody:'We will message you the day before works start. Before and after photos go to you and your agent.',sel:'Selected',pkgSuffix:' package',sep:', '
+};}
+
+function warnHtml(d){
+ var h='';
+ if(d.asbestos)h+='<div class="warn"><b>石棉风险</b>'+esc(d.yearN)+' 年建造。打磨、钻孔、拆除前先安排石棉检测，结果出来再开工。</div>';
+ if(d.leakOpen)h+='<div class="warn"><b>漏水未修</b>屋顶漏水修好之前，水渍处理和天花油漆不能开工。已自动加入「修复屋顶漏水」为必做项。</div>';
+ return h;
+}
+
+function render(){
+ var d=derive(),t=T(),zh=S.lang==='zh',h='';
+ h+='<header><div><div class="eyebrow">[品牌名] · 卖房前翻新与软装</div><h1>售前翻新平台 · 原型演示</h1></div><div class="pill">示例数据 · 价格均为演示</div></header>';
+ h+='<nav aria-label="流程步骤">'+stepDefs.map(function(s,i){return '<button type="button" class="step'+(i===S.step?' on':'')+'" data-go="'+i+'"><b>'+(i+1)+'</b><span>'+s[0]+'</span><small>'+s[1]+'</small></button>';}).join('')+'</nav>';
+ h+='<div class="role"><b>'+stepDefs[S.step][1]+'</b><span>'+stepDefs[S.step][2]+'</span></div>';
+
+ if(S.step===0){
+  h+='<div class="phone"><h2>新建单子</h2>'+
+  '<label class="f">物业地址<input class="field" value="12 Example Street, Glen Waverley VIC 3150"></label>'+
+  '<div class="grid2"><label class="f">房主<input class="field" value="王先生"></label><label class="f">微信<input class="field" value="wang_gw"></label></div>'+
+  '<label class="f">预计上市<input class="field" value="2026-11-15"></label>'+
+  '<div style="font-size:14px;font-weight:500">按区域上传照片和视频</div><div class="grid3">'+
+  areaDefs.map(function(a){return '<div class="area"><b>'+a[0]+'</b><span>'+a[1]+' 张 · 1 段视频</span></div>';}).join('')+
+  '</div><button type="button" class="btn" data-next>提交，通知评估</button></div>';
+ }
+ if(S.step===1){
+  var groups=[];qDefs.forEach(function(q){if(groups.indexOf(q[0])<0)groups.push(q[0]);});
+  var cnt=qDefs.filter(function(q){return S.checked[q[1]];}).length;
+  h+='<div class="row"><div class="main"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline"><h2>从问题库勾选补充问题</h2><span class="muted">已选 '+cnt+' 题 · 发给工头上门回答</span></div>';
+  groups.forEach(function(g){
+   h+='<div style="display:flex;flex-direction:column;gap:8px"><div class="gname">'+g+'</div>';
+   qDefs.filter(function(q){return q[0]===g;}).forEach(function(q){
+    h+='<label class="q"><input type="checkbox" data-check="'+q[1]+'"'+(S.checked[q[1]]?' checked':'')+'><span><span class="t">'+q[2]+'</span><span class="muted">'+q[3]+'</span></span></label>';
+   });
+   h+='</div>';
+  });
+  h+='<button type="button" class="btn" data-next style="align-self:flex-start">发给工头</button></div>';
+  h+='<aside class="side"><div style="font-size:15px;font-weight:700">中介上传的素材</div><div style="font-size:14px;color:var(--soft)">12 Example Street, Glen Waverley</div><div class="grid3">'+
+   areaDefs.map(function(a){return '<div class="thumb">'+a[0]+'</div>';}).join('')+
+   '</div><div class="muted">照片只能初步判断，尺寸、隐患和施工条件要靠上门核实。</div></aside></div>';
+ }
+ if(S.step===2){
+  h+='<div class="phone"><h2>上门回答补充问题</h2><div class="muted">示例答案已填好，可以改动试试，改完点别处，提醒会跟着变。</div>';
+  qDefs.filter(function(q){return S.checked[q[1]];}).forEach(function(q){
+   h+='<label class="f" style="font-size:14px;color:var(--ink)"><span style="font-weight:500">'+q[2]+'</span><input class="field" data-ans="'+q[1]+'" value="'+esc(S.answers[q[1]]||'')+'"></label>';
+  });
+  h+='<div id="warns" style="display:flex;flex-direction:column;gap:10px">'+warnHtml(d)+'</div><button type="button" class="btn" data-next>提交答案</button></div>';
+ }
+ if(S.step===3){
+  var a=S.answers;
+  h+='<div class="phone"><h2>油漆报价</h2><div class="muted">你只看到与油漆有关的照片和数据，看不到其他工种价格和房主信息。</div>'+
+  '<div class="data"><b>工头提供的数据</b><div>面积与层高：'+esc(S.checked.wall?a.wall:'未问')+'</div><div>水渍与漏水：'+esc(S.checked.leak?a.leak:'未问')+'</div><div>裂缝与墙纸：'+esc(S.checked.crack?a.crack:'未问')+'</div></div>';
+  if(d.asbestos)h+='<div class="warn">老房子：打磨墙面前须等石棉检测结果。</div>';
+  if(d.leakOpen)h+='<div class="warn">主卧天花水渍：须在屋顶漏水修复后处理。</div>';
+  bidDefs.forEach(function(b){var r=S.bid[b[0]];
+   h+='<div class="bid"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:500">'+b[1]+'</span><span class="muted" style="font-size:12px" data-sub="'+b[0]+'">小计 '+fmt(num(r.qty)*num(r.price))+'</span></div>'+
+   '<label>'+b[2]+'<input class="field" inputmode="decimal" data-bid="'+b[0]+'" data-k="qty" value="'+esc(r.qty)+'"></label>'+
+   '<label>单价 $<input class="field" inputmode="decimal" data-bid="'+b[0]+'" data-k="price" value="'+esc(r.price)+'"></label></div>';
+  });
+  h+='<div class="total"><span>油漆合计（成本）</span><span id="bidTotal">'+fmt(d.paintCost+d.stainCost)+'</span></div><button type="button" class="btn" data-next>提交报价</button></div>';
+ }
+ if(S.step===4){
+  h+='<div class="row"><div class="main"><h2>给每个项目打标签</h2><div class="muted">三档叠加：推荐包含必做，最佳包含推荐。成本只有你看得到。</div>';
+  d.items.forEach(function(it){
+   h+='<div class="item"><div class="n"><span style="font-size:15px">'+it.zh+'</span><span class="muted" style="font-size:12px">'+it.src+' · 成本 '+fmt(it.cost)+'</span></div><div class="tiers" role="group" aria-label="档位">'+
+    [['e','必做'],['r','推荐'],['p','最佳']].map(function(td){return '<button type="button" class="tb'+(S.tiers[it.id]===td[0]?' on':'')+'" data-tier="'+it.id+'" data-v="'+td[0]+'">'+td[1]+'</button>';}).join('')+'</div></div>';
+  });
+  h+='</div><aside class="side"><label class="f" style="font-size:14px;font-weight:500;color:var(--ink)"><span>加价率 <span id="mk">'+S.markup+'</span>%</span><input type="range" min="10" max="60" step="5" value="'+S.markup+'" data-markup></label>';
+  d.pkgs.forEach(function(p){h+='<div class="sum"><span style="display:flex;flex-direction:column;gap:2px"><b>'+tierInfo[p.tier].zh+'</b><span class="muted" style="font-size:12px">'+p.its.length+' 项 · 成本 '+fmt(p.cost)+'</span></span><span class="p">'+fmt(p.price)+'</span></div>';});
+  h+='<button type="button" class="btn" data-next>生成报价链接</button><div class="muted" style="font-size:12px;word-break:break-all">链接示例：https://[你的域名]/q/8KX3P2</div></aside></div>';
+ }
+ if(S.step===5){
+  h+='<div class="phone"><div style="display:flex;justify-content:space-between;align-items:center"><span class="muted">'+t.brand+'</span><button type="button" class="ghost" data-lang aria-label="切换语言">'+t.sw+'</button></div>'+
+  '<h2 style="font-family:\'Noto Serif SC\',serif;font-size:22px">'+t.title+'</h2><div style="font-size:14px;color:var(--soft)">'+t.sub+'</div>';
+  d.pkgs.forEach(function(p){var on=S.pick===p.tier,ti=tierInfo[p.tier];
+   h+='<button type="button" class="card'+(on?' on':'')+'" data-pick="'+p.tier+'"><span class="top"><span class="nm">'+(zh?ti.zh:ti.en)+'</span><span class="pr">'+fmt(p.price)+'</span></span><span class="muted">'+(zh?ti.dzh:ti.den)+'</span><span class="ls">'+p.its.map(function(it){return zh?it.zh:it.en;}).join(t.sep)+'</span>'+(on?'<span class="bd">'+t.sel+'</span>':'')+'</button>';
+  });
+  h+='<button type="button" class="btn" data-next>'+t.cta+'</button><div class="muted" style="font-size:12px">'+t.valid+'</div></div>';
+ }
+ if(S.step===6){
+  var pk=d.pkgs.filter(function(p){return p.tier===S.pick;})[0]||d.pkgs[1];
+  h+='<div class="phone">';
+  if(!S.signed){
+   var dep=fmt(pk.price*0.3);
+   var pays=[
+    ['now',zh?'现付':'Pay now',zh?'签约付 30% 定金 '+dep+'，完工付尾款。银行转账 / PayID 免手续费':'30% deposit '+dep+' on signing, balance on completion. Bank transfer / PayID'],
+    ['fin',zh?'金融合作方':'Finance partner',zh?'在线申请，批准后由对方付全款，您卖房后再还':'Apply online; the partner pays us, you repay after the sale'],
+    ['settle',zh?'交割时付':'Pay at settlement',zh?'签一份授权书给您的律师，交割时直接从售房款里支付':'Sign an authority for your conveyancer to pay from sale proceeds']
+   ];
+   h+='<div style="display:flex;justify-content:space-between;align-items:center"><h2>'+t.signTitle+'</h2><button type="button" class="ghost" data-lang aria-label="切换语言">'+t.sw+'</button></div>'+
+   '<div class="contract"><div>'+t.cParty+'<strong>王先生</strong></div><div>'+t.cAddr+'<strong>12 Example Street, Glen Waverley</strong></div><div>'+t.cPkg+'<strong>'+(zh?tierInfo[pk.tier].zh:tierInfo[pk.tier].en)+t.pkgSuffix+'</strong></div><div>'+t.cPrice+'<strong>'+fmt(pk.price)+'</strong></div><div>'+t.cDates+'<strong>'+t.dates+'</strong></div></div>'+
+   '<div style="font-size:14px;font-weight:500">'+t.payTitle+'</div>'+
+   pays.map(function(p){return '<button type="button" class="card'+(S.pay===p[0]?' on':'')+'" data-pay="'+p[0]+'"><span style="font-size:15px;font-weight:700">'+p[1]+'</span><span style="font-size:13px;color:var(--soft)">'+p[2]+'</span></button>';}).join('')+
+   '<button type="button" class="btn" data-sign>'+t.signBtn+'</button><div class="muted" style="font-size:12px">'+t.signNote+'</div>';
+  }else{
+   var payName={now:'现付：等待定金到账',fin:'金融合作方：等待审批',settle:'交割时付：待交割日结清'}[S.pay];
+   var tl=[['已签约',1],[payName,1],['施工排期',0],['施工中',0],['已完工 · 上传前后照片',0],['已结清',0]];
+   h+='<h2 style="color:var(--accent)">'+t.doneTitle+'</h2><div style="font-size:14px;color:var(--soft)">'+t.doneBody+'</div><div style="font-size:14px;font-weight:700">后台状态（管理员视角）</div>'+
+   tl.map(function(x){return '<div class="tl"><span class="dot'+(x[1]?' on':'')+'"></span><span class="'+(x[1]?'':'off')+'">'+x[0]+'</span></div>';}).join('')+
+   '<button type="button" class="ghost" data-restart>从头再走一遍</button>';
+  }
+  h+='</div>';
+ }
+ app.innerHTML=h;
+}
+
+function go(i){S.step=i;render();window.scrollTo(0,0);}
+app.addEventListener('click',function(e){
+ var el=e.target.closest('button');if(!el)return;
+ if(el.hasAttribute('data-go'))return go(parseInt(el.getAttribute('data-go'),10));
+ if(el.hasAttribute('data-next'))return go(Math.min(S.step+1,6));
+ if(el.hasAttribute('data-tier')){S.tiers[el.getAttribute('data-tier')]=el.getAttribute('data-v');return render();}
+ if(el.hasAttribute('data-pick')){S.pick=el.getAttribute('data-pick');return render();}
+ if(el.hasAttribute('data-pay')){S.pay=el.getAttribute('data-pay');return render();}
+ if(el.hasAttribute('data-lang')){S.lang=S.lang==='zh'?'en':'zh';return render();}
+ if(el.hasAttribute('data-sign')){S.signed=true;render();return window.scrollTo(0,0);}
+ if(el.hasAttribute('data-restart')){S=initial();render();return window.scrollTo(0,0);}
+});
+app.addEventListener('change',function(e){
+ var el=e.target;
+ if(el.hasAttribute('data-check')){S.checked[el.getAttribute('data-check')]=el.checked;return render();}
+ if(el.hasAttribute('data-markup')){S.markup=parseInt(el.value,10)||30;return render();}
+});
+app.addEventListener('input',function(e){
+ var el=e.target;
+ if(el.hasAttribute('data-ans')){S.answers[el.getAttribute('data-ans')]=el.value;var w=document.getElementById('warns');if(w)w.innerHTML=warnHtml(derive());return;}
+ if(el.hasAttribute('data-bid')){var k=el.getAttribute('data-bid');S.bid[k][el.getAttribute('data-k')]=el.value;var d=derive();
+  var sub=app.querySelector('[data-sub="'+k+'"]');if(sub)sub.textContent='小计 '+fmt(num(S.bid[k].qty)*num(S.bid[k].price));
+  var bt=document.getElementById('bidTotal');if(bt)bt.textContent=fmt(d.paintCost+d.stainCost);return;}
+ if(el.hasAttribute('data-markup')){var m=document.getElementById('mk');if(m)m.textContent=el.value;}
+});
+render();
+})();
+</script>
+</body>
+</html>
